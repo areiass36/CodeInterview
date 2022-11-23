@@ -1,5 +1,6 @@
 #Binary files
-bin/*
+bin/
+#bin/**/
 
-#Debug files
+**/.DS_Store
 **/*.dSYM
