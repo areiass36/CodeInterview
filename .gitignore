@@ -1,6 +1,5 @@
-#Editor / IDE config folder
-.bin/*
+#Binary files
+
 
 #Debug files
 **/*.dSYM
-
