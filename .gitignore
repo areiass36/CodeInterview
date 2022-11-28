@@ -3,3 +3,14 @@ bin/**
 
 **/.DS_Store
 **/*.dSYM
+
+#compiled c++ code
+main
+
+#test cases
+*.txt
+
+# Executables
+*.exe
+*.out
+*.app
