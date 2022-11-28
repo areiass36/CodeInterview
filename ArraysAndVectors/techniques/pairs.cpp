@@ -71,8 +71,7 @@ int main(){
 
     if(result.size() == 0){
         cout << "No such pair exists" << endl;
-    }
-    else{
+    } else{
         cout << result[0] << " " << result[1] << endl; //10 -6
     }
     
