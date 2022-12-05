@@ -11,10 +11,14 @@ Either you can:
 //https://www.spoj.com/problems/BUSYMAN/
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
+#include <unordered_map>
+
+using namespace std;
 
 vector<pair<int,int>> readInput(int numberActivities){
-  vector<pair<int,int>> activities(numberActivities);
+  vector<pair<int,int>> activities;
 
   for(int i = 0; i < numberActivities; i++){
     int start, end;
@@ -28,11 +32,37 @@ vector<pair<int,int>> readInput(int numberActivities){
 void solve() {
   int numberActivities;
   cin >> numberActivities;
-  vector<pair<int,int>> activities = readInput(numberActivities);
-
-  activities.sort(activities.begin(), activities.end());
-
+  vector<pair<int,int>> input = readInput(numberActivities);
+  sort(input.begin(),input.end());
   
+  unordered_map<int,int> map; 
+  
+  for (auto pair : input) { 
+    map[pair.first] = pair.second; 
+  }
+
+  int lastStartingHour = input[input.size() - 1].first;
+  int ans = 1;
+  for(int i = 0; i < input.size(); i++){
+    pair<int,int> current = input[i];
+    int nextStartTime = current.second;
+
+    int actitviesNumber = 1;
+    while(nextStartTime <= lastStartingHour){
+      int nextFinishTime = map[nextStartTime];
+      bool hasNextAct = nextFinishTime != 0;
+      
+      if(hasNextAct){
+        actitviesNumber++;
+        nextStartTime = nextFinishTime; 
+      }
+      else
+        nextStartTime++;
+    }
+    ans = max(ans,actitviesNumber);
+  }
+  
+  cout << ans << endl;
 }
 
 
