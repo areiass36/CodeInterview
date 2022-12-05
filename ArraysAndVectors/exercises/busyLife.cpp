@@ -65,7 +65,6 @@ void solve() {
   cout << ans << endl;
 }
 
-
 int main(){
 
   int t; cin >> t;
@@ -74,4 +73,38 @@ int main(){
   }
   
   return 0;
+}
+
+//Udemy
+int countActivites(vector<pair<int,int> > input){
+    
+    sort(input.begin(),input.end());
+  
+    unordered_map<int,int> map; 
+  
+    for (auto pair : input) { 
+        map[pair.first] = pair.second; 
+    }
+
+    int lastStartingHour = input[input.size() - 1].first;
+    int ans = 1;
+    for(int i = 0; i < input.size(); i++){
+        pair<int,int> current = input[i];
+        int nextStartTime = current.second;
+        int actitviesNumber = 1;
+        while(nextStartTime <= lastStartingHour){
+            int nextFinishTime = map[nextStartTime];
+            bool hasNextAct = nextFinishTime != 0;
+      
+            if(hasNextAct){
+                actitviesNumber++;
+                nextStartTime = nextFinishTime; 
+            }
+            else
+                nextStartTime++;
+    }
+    ans = max(ans,actitviesNumber);
+  }
+  
+  return ans;
 }
