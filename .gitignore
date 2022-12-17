@@ -14,3 +14,9 @@ main
 *.exe
 *.out
 *.app
+
+#Vscode
+.vscode
+
+# C++ File to practice revision
+revision.cpp
