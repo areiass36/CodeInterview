@@ -4,6 +4,11 @@ bin/**
 **/.DS_Store
 **/*.dSYM
 
+#Replit
+.ccls-cache/
+.replit
+replit.nix
+
 #compiled c++ code
 main
 
