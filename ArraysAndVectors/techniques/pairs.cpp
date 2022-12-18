@@ -62,11 +62,11 @@ vector<int> pairSum(vector<int> arr, int Sum){
     return {};
 }
 
-//Better version, using pair and set
+//"Better" version, using pair
 pair<int,int> pairs(vector<int> arr, int target){
     int n = arr.size();
 
-    set<int> seen;
+    unordered_set<int> seen;
     for(int num : arr){
         int complement = target - num;
         if (seen.find(complement) != seen.end()){
