@@ -1,4 +1,7 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -28,6 +31,33 @@ int trappedWater(vector<int> heights)
         water += min(left[i], right[i]) - heights[i];
     }
     return water;
+}
+
+// Augusto's solution
+int solution2(vector<int> arr)
+{
+    vector<int> left;
+    vector<int> right;
+    int result = 0;
+
+    int currentLeftMax = 0;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        currentLeftMax = max(currentLeftMax, arr[i]);
+        left.push_back(currentLeftMax);
+    }
+
+    int currentRightMax = 0;
+    for (int i = arr.size() - 1; i >= 0; i--)
+    {
+        currentRightMax = max(currentRightMax, arr[i]);
+        right.insert(right.begin(), currentRightMax);
+    }
+
+    for (int i = 0; i < arr.size(); i++)
+        result += min(left[i], right[i]) - arr[i];
+
+    return result;
 }
 
 int main()

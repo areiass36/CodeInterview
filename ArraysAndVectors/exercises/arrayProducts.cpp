@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// TODO - finish this exercise
 vector<int> productArray(vector<int> arr)
 {
     vector<int> output(arr.size(), 1);
