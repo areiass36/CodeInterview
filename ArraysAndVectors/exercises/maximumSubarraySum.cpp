@@ -3,6 +3,8 @@
 
 using namespace std;
 
+//https://leetcode.com/problems/maximum-subarray/
+
 int maxSum(int a, int b, int c);
 
 bool isSameGroup(int groupSum, int cur);

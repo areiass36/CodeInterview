@@ -4,6 +4,9 @@
 
 using namespace std;
 
+//Little different on Leetcode
+//https://leetcode.com/problems/minimum-absolute-difference/
+
 // O(m log m + n log n)
 pair<int, int> minDifference(vector<int> a, vector<int> b)
 {

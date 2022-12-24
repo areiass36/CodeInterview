@@ -3,6 +3,9 @@
 
 using namespace std;
 
+//https://leetcode.com/problems/product-of-array-except-self/
+
+
 // TODO - finish this exercise
 vector<int> productArray(vector<int> arr)
 {
