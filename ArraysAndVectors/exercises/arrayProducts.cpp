@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#define printArray(arr) for(int num : arr) cout << num << " ";
+
 using namespace std;
 
 //https://leetcode.com/problems/product-of-array-except-self/
@@ -48,17 +50,39 @@ vector<int> productExceptSelf(vector<int> nums) {
     return output;
 }
 
-//Great Solution - Without Division
+//Parcial Solution - Without Division but on O(n) space 
 //O(n) - time
-//O(1) - space (excluding output)
+//O(n) - space (excluding output)
 //TODO - finish this exercise
-vector<int> productExceptSelf2(vector<int> nums) {
-    int n = nums.size();
-    
+vector<int> productArray1(vector<int> arr) {
+    //Create an output Array
+    int n = arr.size();
     vector<int> output(n,1);
+    vector<int> temp(n,1);
+    
+    int fullProduct = 1;
+    for(int i = 0; i < n; i++){
+        output[i] = fullProduct;
+        fullProduct *= arr[i];
+    }
+    
+    fullProduct = 1;
+    for(int i = n-1; i >= 0; i--){
+        temp[i] = fullProduct;
+        fullProduct *= arr[i];
+    }
+
+    /* printArray(output);
+    cout << endl;
+    printArray(temp);
+    cout << endl; */
+
+    for(int i = 0; i < n; i++){
+        output[i] *= temp[i];
+    }
 
     return output;
-}
+}    
 
 int main(){
     //Some Test Cases
@@ -72,7 +96,7 @@ int main(){
 
     // pointer to function
     vector<int> (*solve)(vector<int>);
-    solve = &productExceptSelf; // Change this to the function you want to test
+    solve = &productArray1; // Change this to the function you want to test
 
     for(auto arr : testCases){
         auto output = (*solve)(arr);
