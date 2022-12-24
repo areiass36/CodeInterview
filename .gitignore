@@ -22,6 +22,7 @@ main
 
 #Vscode
 .vscode
+*.json
 
 # C++ File to practice revision
 revision.cpp
