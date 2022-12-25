@@ -82,7 +82,35 @@ vector<int> productArray1(vector<int> arr) {
     }
 
     return output;
-}    
+}
+
+//Best Solution
+//O(n) - time
+//O(1) - space (excluding output)
+//TODO - finish this exercise
+vector<int> productArray2(vector<int> arr) {
+    //Create an output Array
+    int n = arr.size();
+    vector<int> output(n,1);
+    
+    int fullProduct = 1;
+    for(int i = 0; i < n; i++){
+        output[i] = fullProduct;
+        fullProduct *= arr[i];
+    }
+    
+    fullProduct = 1;
+    for(int i = n-1; i >= 0; i--){
+        output[i] *= fullProduct;
+        fullProduct *= arr[i];
+    }
+
+    /* printArray(output);
+    cout << endl;
+    */
+    
+    return output;
+}
 
 int main(){
     //Some Test Cases
