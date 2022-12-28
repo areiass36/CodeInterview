@@ -2,6 +2,33 @@
 
 using namespace std;
 
+//Course Solution
+//O(2^N) - time
+//O(n) - space (due to recursive call stack)
+void subsequence(string s, string o, vector<string> &v){
+    //Base case
+    if (s.length() == 0){
+        v.push_back(o);
+        return;
+    }
+
+    char ch = s[0];
+    string reduced_input = s.substr(1);
+    
+    //Goes to left - Includes  
+    subsequence(reduced_input, o + ch, v);
+
+    //Goes to right - Excludes
+    subsequence(reduced_input, o, v);
+}
+
+bool lexicoCompare(string s1, string s2){
+    if (s1.length() == s2.length()){
+        return s1 < s2;
+    }
+    return s1.length() < s2.length();
+}
+
 //Parcial Solution - Ryan
 //O(m * 2^n) - time (n is string length and m binary string length.)
 //O(1) - space (answer vector doesn't count, [I think])
@@ -32,9 +59,14 @@ vector<string> getSubsequence(string str){
 
 int main() {
 
-    string inputString = "aab";
+    string inputString = "abcd";
 
-    auto output = getSubsequence(inputString);
+    //auto output = getSubsequence(inputString); //Ryan Solution
+
+    //Course Solution
+    vector<string> output;
+    subsequence(inputString, "", output);
+    sort(output.begin(), output.end(), lexicoCompare);
 
     for(string str : output){
         cout << str << " ";
