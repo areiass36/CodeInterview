@@ -7,7 +7,7 @@ bool compare(pair<string,int> x, pair<string,int> y){
 
 //O(n log n) - Time
 //O(1) - Space
-int badness(vector<pair<string,int> > teams){
+int badness(vector<pair<string,int>> teams){
     sort(teams.begin(),teams.end(), compare);
     int badness = 0;
     for(int i = 0; i < teams.size(); i++){
@@ -17,7 +17,25 @@ int badness(vector<pair<string,int> > teams){
     return badness;
 }
 
+//O(n) - Time
+//O(1) - Space
+int badness1(vector<pair<string,int>> teams){
+    int bucket[teams.size()+1] = {0};
+    for(auto pair : teams){
+        bucket[pair.second]++;
+    }
 
+    int badness = 0;
+    int position = 1;
+    for(int i = 1; i <= teams.size(); i++){
+        while(bucket[i]){
+            badness += abs(position - i);
+            bucket[i]--;
+            position++;
+        }
+    }
+    return badness;
+}
 
 int main() {
 
@@ -31,7 +49,7 @@ int main() {
         {"WhoKnows",7},
     };
 
-    cout << badness(arr) << endl;
+    cout << badness1(arr) << endl;
 
     return 0;
 }
