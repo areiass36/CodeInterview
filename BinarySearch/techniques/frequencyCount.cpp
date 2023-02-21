@@ -44,6 +44,8 @@ int upperBound(vector<int> arr, int target){
     return ans;
 }
 
+//O(log n)
+//O(1) - Because B.S is iterative
 int frequencyCount(vector<int> arr, int target){
     int lower = lowerBound(arr,target);
     int upper = upperBound(arr,target);
