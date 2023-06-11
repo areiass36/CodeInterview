@@ -1,6 +1,7 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 #include <iostream>
+#include <queue>
 #include <sstream>
 
 using namespace std;
@@ -19,6 +20,8 @@ public:
 };
 
 node *buildTree(istringstream *iss);
+int heightTree(node *root);
+void printTree(node *root);
 
 
 #endif /* BINARYTREE_H */

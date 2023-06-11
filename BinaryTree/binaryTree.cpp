@@ -28,3 +28,35 @@ node *buildTree(istringstream *iss = NULL){
     
     return root;
 }
+
+int heightTree(node *root){
+    if(root == NULL) return 0;
+    
+    int leftHeight = heightTree(root->left);
+    int rightHeight = heightTree(root->right);
+    
+    return max(leftHeight, rightHeight) + 1;
+}
+
+void printTree(node *root){
+    queue<node*> q;
+    
+    q.push(root);
+    q.push(NULL);
+    while(!q.empty()){
+        node *temp = q.front();
+        q.pop();
+        if(temp == NULL){
+            cout << endl;
+            if(!q.empty())
+                q.push(NULL);
+        }
+        else{
+            cout << temp->data << " ";
+            if(temp->left != NULL)
+                q.push(temp->left);
+            if(temp->right != NULL)
+                q.push(temp->right);
+        }
+    }
+}
