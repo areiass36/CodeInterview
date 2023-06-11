@@ -23,6 +23,39 @@ int diameter(node *root){
     return max({D1, D2, D3}); 
 }
 
+class HDpair {
+public:
+    int height;
+    int diameter;
+};
+
+//Time - O(n)
+HDpair _diameterOptimized(node *root){
+    HDpair node;
+
+    if (root == NULL){
+        node.height = node.diameter = 0;
+        return node;
+    }
+
+    HDpair left = _diameterOptimized(root->left);
+    HDpair right = _diameterOptimized(root->right);
+
+    node.height = max(left.height, right.height) + 1;
+
+    int D1 = left.height + right.height;
+    int D2 = left.diameter;
+    int D3 = right.diameter;
+
+    node.diameter = max({D1, D2, D3});
+    return node;
+}
+
+int diameterOptimized(node *root){
+    HDpair ans = _diameterOptimized(root);
+    return ans.diameter;
+}
+
 int main() {
     string input = "1 2 4 -1 -1 5 7 -1 -1 -1 3 -1 6 -1 -1";
     istringstream iss(input);
@@ -30,6 +63,7 @@ int main() {
     node *root = buildTree(&iss);
 
     cout << diameter(root) << endl;
+    cout << diameterOptimized(root) << endl;
 
     return 0;
 }
