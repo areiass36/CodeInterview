@@ -5,52 +5,49 @@
 
 //-------------------Ryan's Solution---------------------
 
-//ATENTION: DOESN'T WORK :(
-
-vector<node*> ancestors;
 vector<int> ans;
 
-void getNodesDownBelow(node *root, int k, int currLevel = 0){
+void getNodesAtLevelK(node *root, int k){
     if (root == NULL) return;
-    if (currLevel == k){
+    if (k == 0){
         ans.push_back(root->data);
         return;
     }
-    getNodesDownBelow(root->left, k, currLevel+1);
-    getNodesDownBelow(root->right, k, currLevel+1);
+    getNodesAtLevelK(root->left, k-1);
+    getNodesAtLevelK(root->right, k-1);
+    return;
 }
 
-void getNodesUpBelow(node *root, int k, int d){
-    if (root == NULL) return;
-    if (d == k){
-        ans.push_back(root->data);
-        return;
-    }
-    getNodesUpBelow(root->left, k, d+1);
-    getNodesUpBelow(root->right, k, d+1);
-}
-
-void _nodesAtDistanceK(node *root, node *target, int k){
-    ancestors.push_back(root);
+int _nodesAtDistanceK(node *root, node *target, int k){
     if (root == NULL){
-        return;
+        return -1;
     }
 
     if (root->data == target->data){
         // get nodes down below
-        getNodesDownBelow(root, k);
-        int ancestorsDistance = 1;
-        ancestors.pop_back(); //remove current target node as ancestors
-
-        for(int i = ancestors.size() - 1; i >= 0; i--){
-            getNodesUpBelow(ancestors[i], k, ancestorsDistance);
-            ancestorsDistance++;
-        }
+        getNodesAtLevelK(root, k);
+        return 0; // return 0 to indicate that the target was found
     }
 
-    _nodesAtDistanceK(root->left, target, k);
-    _nodesAtDistanceK(root->right, target, k);
-    ancestors.pop_back();
+    int targetOnLeft = _nodesAtDistanceK(root->left, target, k);
+    if(targetOnLeft != -1){
+        // If the target was found on the left subtree, get nodes on the right subtree
+        if (targetOnLeft + 1 == k) // if the first ancestor is at distance k
+            ans.push_back(root->data);
+        else
+            getNodesAtLevelK(root->right, k-2-targetOnLeft); // - 2 
+        return 1 + targetOnLeft; // return 1 to indicate that the target was found
+    }
+    int targetOnRight = _nodesAtDistanceK(root->right, target, k);
+    if (targetOnRight != -1){
+        // If the target was found on the right subtree, get nodes on the left subtree
+        if (targetOnRight + 1 == k) // if the first ancestor is at distance k
+            ans.push_back(root->data);
+        else
+            getNodesAtLevelK(root->left, k-2-targetOnRight);
+        return 1 + targetOnRight; // return 1 to indicate that the target was found
+    }
+    return -1; // return -1 to indicate that the target was not found
 }
 
 vector<int> nodesAtDistanceK1(node *root, node *target, int k){
@@ -120,15 +117,15 @@ int main() {
     //Course Solution
     printNodesAtDistanceK(tree, target, 2);
     
-    //cout << "\n\n\n";
+    cout << "\n\n\n";
 
     //Ryan's Solution - doesn't work
-    // auto ans = nodesAtDistanceK1(tree, target, 2);
+    auto ans = nodesAtDistanceK1(tree, target, 2);
 
-    // for(int num : ans){
-    //     cout << num << " ";
-    // }
-    // cout << endl;
+    for(int num : ans){
+        cout << num << " ";
+    }
+    cout << endl;
 
     return 0;
 }
