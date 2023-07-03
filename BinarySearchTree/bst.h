@@ -18,6 +18,7 @@ public:
     }
 };
 
+node *constructMinimumHeightBST(vector<int> arr, int start, int end);
 node *insert(node *root, int data);
 void preorder(node *root);
 void inorder(node *root);
