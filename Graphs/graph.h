@@ -47,6 +47,48 @@ public:
             }
         }
     }
+
+    void shortestPathBFS(int src){
+        queue<int> q;
+
+        vector<bool> visited(this->v, false);
+        vector<int> parent(this->v, -1);
+        vector<int> dist(this->v, 0);
+
+        q.push(src);
+        visited[src] = true;
+        parent[src] = src;
+        dist[src] = 0;
+        while (not q.empty()){
+            int node = q.front();
+            cout << node << " ";
+            q.pop();
+            for(auto nbr : l[node]){
+                if(not visited[nbr]){
+                    q.push(nbr);
+                    parent[nbr] = node;
+                    dist[nbr] = dist[node] + 1;
+                    visited[nbr] = true;
+                }
+            }
+        }
+        cout << endl;
+        // print the shortest distance
+        for(int i=0; i < v; i++){
+            cout << "Shortest distance to " << i << " is " << dist[i] << endl;
+        }
+
+        // print the path
+        for(int i=0; i < v; i++){
+            cout << "Shortest path to " << i << " is " << dist[i] << " and path is " << endl;
+            int temp = i;
+            while (temp != src){
+                cout << temp << "<--";
+                temp = parent[temp];
+            }
+            cout << src << endl;
+        }
+    }
 };
 
 #endif /* GRAPH_H */
