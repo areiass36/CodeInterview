@@ -30,6 +30,22 @@ public:
         }
     }
 
+    void _dfs(int node, vector<bool>& visited){
+        visited[node] = true;
+        cout << node << " ";
+        for(int nbr : l[node]){
+            if(not visited[nbr]){
+                _dfs(nbr, visited);
+            }
+        }
+        return;
+    }
+
+    void dfs(int src){
+        vector<bool> visited(this->v,false);
+        _dfs(src, visited);
+    }
+
     void bfs(int src){
         queue<int> q;
 
