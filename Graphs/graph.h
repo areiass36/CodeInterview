@@ -29,6 +29,24 @@ public:
             cout <<endl;
         }
     }
+
+    void bfs(int src){
+        queue<int> q;
+
+        vector<bool> visited(this->v, false);
+        q.push(src);
+        while (not q.empty()){
+            int node = q.front();
+            cout << node << " ";
+            q.pop();
+            for(auto nbr : l[node]){
+                if(not visited[nbr]){
+                    q.push(nbr);
+                    visited[nbr] = true;
+                }
+            }
+        }
+    }
 };
 
 #endif /* GRAPH_H */
