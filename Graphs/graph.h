@@ -46,6 +46,24 @@ public:
         _dfs(src, visited);
     }
 
+    bool _hasCycle(int node,vector<bool>& visited, int parent){
+        visited[node] = true;
+        
+        for(int nbr : l[node]){
+            if (not visited[nbr]){
+                return _hasCycle(nbr, visited,node);            
+            } else if (nbr != parent){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool contains_cycle(int src){
+        vector<bool> visited(this->v, false);
+        return _hasCycle(src,visited,-1);
+    }
+
     void bfs(int src){
         queue<int> q;
 
